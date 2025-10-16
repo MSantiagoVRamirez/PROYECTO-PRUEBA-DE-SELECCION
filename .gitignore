@@ -1,0 +1,25 @@
+# IDE / sistema
+.vs/
+.vscode/
+Thumbs.db
+.DS_Store
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+
+# Entornos
+.env
+*.env.local
+*.env.*.local
+
+# Logs temporales
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Laravel (raíz del monorepo)
+backend/storage/
+backend/vendor/
+backend/bootstrap/cache/
