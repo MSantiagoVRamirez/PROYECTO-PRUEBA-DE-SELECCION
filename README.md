@@ -144,4 +144,3 @@ npm run dev           # http://localhost:5173
 </ul>
 
 <hr/>
-<p align="center" style="color:#64748b;">Hecho con ❤️ por Miguel Santiago Velásquez</p>
