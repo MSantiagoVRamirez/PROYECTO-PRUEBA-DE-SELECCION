@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LibroStoreRequest;
+use App\Http\Requests\LibroUpdateRequest;
 use App\Models\Libro;
+use App\Services\LibroService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use OpenApi\Attributes as OA;
@@ -26,17 +29,14 @@ class LibroController extends Controller
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(ref: "#/components/schemas/Libro")),
         responses: [new OA\Response(response: 201, description: "Creado", content: new OA\JsonContent(ref: "#/components/schemas/Libro"))]
     )]
-    public function store(Request $request)
+    public function __construct(private readonly LibroService $libroService)
     {
-        $data = $request->only([
-            'titulo',
-            'resumen',
-            'anio_publicacion',
-            'isbn',
-            'stock',
-        ]);
+    }
 
-        $libro = Libro::create($data);
+    public function store(LibroStoreRequest $request)
+    {
+        $data = $request->validated();
+        $libro = $this->libroService->crear($data);
         return response()->json($libro, Response::HTTP_CREATED);
     }
 
@@ -54,18 +54,10 @@ class LibroController extends Controller
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(ref: "#/components/schemas/Libro")),
         responses: [new OA\Response(response: 200, description: "OK", content: new OA\JsonContent(ref: "#/components/schemas/Libro"))]
     )]
-    public function update(Request $request, Libro $libro)
+    public function update(LibroUpdateRequest $request, Libro $libro)
     {
-        $data = $request->only([
-            'titulo',
-            'resumen',
-            'anio_publicacion',
-            'isbn',
-            'stock',
-        ]);
-
-        $libro->fill($data);
-        $libro->save();
+        $data = $request->validated();
+        $libro = $this->libroService->actualizar($libro, $data);
         return response()->json($libro);
     }
 

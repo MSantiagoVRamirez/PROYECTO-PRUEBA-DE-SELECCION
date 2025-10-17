@@ -13,4 +13,4 @@ Route::apiResource('autores', AutorController::class);
 Route::apiResource('generos', GeneroController::class);
 Route::apiResource('libros', LibroController::class);
 Route::apiResource('prestamos', PrestamoController::class);
-
+Route::patch('prestamos/{prestamo}/devolver', [PrestamoController::class, 'devolver']);
