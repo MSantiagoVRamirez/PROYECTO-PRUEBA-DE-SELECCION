@@ -15,9 +15,12 @@ class UsuarioController extends Controller
             content: new OA\JsonContent(type: "array", items: new OA\Items(ref: "#/components/schemas/Usuario"))
         )]
     )]
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Usuario::query()->latest()->get());
+        $perPage = max(1, min(100, (int) $request->query('per_page', 10)));
+        return response()->json(
+            Usuario::query()->latest()->paginate($perPage)
+        );
     }
 
     #[OA\Post(path: "/api/usuarios", tags: ["Usuarios"], summary: "Crear usuario",

@@ -18,10 +18,11 @@ class LibroController extends Controller
             content: new OA\JsonContent(type: "array", items: new OA\Items(ref: "#/components/schemas/Libro"))
         )]
     )]
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
+        $perPage = max(1, min(100, (int) $request->query('per_page', 10)));
         return response()->json(
-            Libro::query()->latest()->get()
+            Libro::query()->latest()->paginate($perPage)
         );
     }
 

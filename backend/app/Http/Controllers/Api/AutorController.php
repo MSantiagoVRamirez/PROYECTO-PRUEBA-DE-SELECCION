@@ -15,9 +15,12 @@ class AutorController extends Controller
             content: new OA\JsonContent(type: "array", items: new OA\Items(ref: "#/components/schemas/Autor"))
         )]
     )]
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
-        return response()->json(Autor::query()->latest()->get());
+        $perPage = max(1, min(100, (int) $request->query('per_page', 10)));
+        return response()->json(
+            Autor::query()->latest()->paginate($perPage)
+        );
     }
 
     #[OA\Post(path: "/api/autores", tags: ["Autores"], summary: "Crear autor",

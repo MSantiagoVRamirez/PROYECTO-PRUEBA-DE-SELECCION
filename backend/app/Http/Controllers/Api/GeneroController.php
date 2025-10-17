@@ -15,9 +15,12 @@ class GeneroController extends Controller
             content: new OA\JsonContent(type: "array", items: new OA\Items(ref: "#/components/schemas/Genero"))
         )]
     )]
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
-        return response()->json(Genero::query()->latest()->get());
+        $perPage = max(1, min(100, (int) $request->query('per_page', 10)));
+        return response()->json(
+            Genero::query()->latest()->paginate($perPage)
+        );
     }
 
     #[OA\Post(path: "/api/generos", tags: ["Géneros"], summary: "Crear género",

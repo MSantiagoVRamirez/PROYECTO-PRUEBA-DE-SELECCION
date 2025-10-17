@@ -22,10 +22,11 @@ class PrestamoController extends Controller
             content: new OA\JsonContent(type: "array", items: new OA\Items(ref: "#/components/schemas/Prestamo"))
         )]
     )]
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
+        $perPage = max(1, min(100, (int) $request->query('per_page', 10)));
         return response()->json(
-            Prestamo::query()->latest()->get()
+            Prestamo::query()->latest()->paginate($perPage)
         );
     }
 
@@ -97,4 +98,3 @@ class PrestamoController extends Controller
         }
     }
 }
-

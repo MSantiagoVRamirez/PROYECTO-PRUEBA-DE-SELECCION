@@ -1,0 +1,19 @@
+.app-shell { display: flex; flex-direction: column; height: 100vh; background: #f9fafb; color: #0f172a; }
+
+/* Header en azul claro y agradable */
+.app-header { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 60px; background: #bfdbfe; color: #0f172a; border-bottom: 1px solid #c7d2fe; }
+.app-header .brand { font-weight: 700; letter-spacing: 0.2px; }
+.top-nav a { color: #0f172a; opacity: 0.8; text-decoration: none; margin-left: 16px; padding: 6px 10px; border-radius: 6px; transition: background-color .15s ease, opacity .15s ease; }
+.top-nav a:hover { background: #dbeafe; opacity: 1; }
+.top-nav a.active { background: #93c5fd; opacity: 1; font-weight: 600; }
+
+/* Cuerpo con sidebar en azul muy claro */
+.app-body { display: grid; grid-template-columns: 220px 1fr; height: 100%; min-height: 0; }
+.app-sidebar { background: #e0f2fe; color: #0f172a; padding: 16px; overflow-y: auto; border-right: 1px solid #bae6fd; }
+.app-sidebar a { color: #0f172a; text-decoration: none; display: block; padding: 8px 10px; border-radius: 8px; opacity: 0.9; transition: background-color .15s ease, opacity .15s ease; }
+.app-sidebar a:hover { background: #bae6fd; opacity: 1; }
+.app-sidebar a.active { background: #93c5fd; font-weight: 600; opacity: 1; }
+.app-sidebar ul { list-style: none; padding: 0; margin: 0; }
+.app-sidebar li { margin: 6px 0; }
+
+.app-content { padding: 20px; overflow: auto; }
